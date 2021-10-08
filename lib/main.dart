@@ -1,9 +1,9 @@
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
 import 'package:ebank_demo/pages/language/language.dart';
+import 'package:ebank_demo/pages/switch_page/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'pages/login_root/root.dart';
 
 void main() {
@@ -35,8 +35,9 @@ class _MyAppState extends State<MyApp> {
         // primaryColor: appColor,
       ),
       debugShowCheckedModeBanner: false,
-      // home: const SwitchScreen(),
-      home: const HomePage(),
+      home: const SwitchScreen(),
+      // home: const RootHomePage(),
+      // home: const HomePage(),
     );
   }
 

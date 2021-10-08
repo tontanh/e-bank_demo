@@ -1,7 +1,9 @@
 import 'package:ebank_demo/pages/constant/data.dart';
 import 'package:ebank_demo/pages/language/change_language.dart';
 import 'package:ebank_demo/pages/login/constant.dart';
+import 'package:ebank_demo/pages/register/regist_name.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -104,7 +106,10 @@ class _LoginScreenState extends State<RegisterScreen> {
                 height: 40,
                 width: 200,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => RegisName(),
+                        transition: Transition.rightToLeft);
+                  },
                   child: Text(
                     'I ACCEPT'.tr,
                     style: TextStyle(color: Colors.white),

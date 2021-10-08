@@ -39,6 +39,18 @@ class _AboutScreenState extends State<AboutScreen> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Text('Email : tonkmnv@gmail.com'),
+          Text(
+            'Font-End : Flutter',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'Back-End : Node Js',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'Database : Mysql',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );

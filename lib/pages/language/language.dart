@@ -48,6 +48,23 @@ class LocalString extends Translations {
               'This Application created By tontanh',
           'Created for testig E-BANK Like BCEL One':
               'Created for testig E-BANK Like BCEL One',
+          'Remember Email': 'Remember Email',
+          'Next': 'Next',
+          'First Name EN': 'First Name EN',
+          'First Name English': 'First Name English',
+          'First Name LA': 'First Name LA',
+          'First Name Lao': 'First Name Lao',
+          'Last Name EN': 'Last Name EN',
+          'Last Name English': 'Last Name English',
+          'Last Name LA': 'Last Name LA',
+          'Last Name Lao': 'Last Name Lao',
+          'Email': 'Email',
+          'Email for Login': 'Email for Login',
+          'New Password': 'New Password',
+          'Retry Password': 'Retry Password',
+          'Enter password again': 'Enter password again',
+          'loading': 'loading',
+          'Register Done': 'Register Done',
         },
         // Lao language
         'la_LA': {
@@ -95,6 +112,23 @@ class LocalString extends Translations {
               'ແອບພີເຄຊັນນີ້ສ້າງຂື້ນໂດຍ : ຕົ້ນຕານ',
           'Created for testig E-BANK Like BCEL One':
               'ສ້າງຂື້ນມາເພື່ອທົດສອບ E-Bank ຄາຍຄືກັບ BCEL One',
-        }
+          'Remember Email': 'ຈົດຈຳອີເມວ',
+          'Next': 'ຖັດໄປ',
+          'First Name EN': 'ຊື່ພາສາອັງກິດ',
+          'First Name English': 'ຊື່ພາສາອັງກິດ',
+          'First Name LA': 'ຊື່ພາສາລາວ',
+          'First Name Lao': 'ຊື່ພາສາລາວ',
+          'Last Name EN': 'ນາມສະກຸນພາສາອັງກິດ',
+          'Last Name English': 'ນາມສະກຸນພາສາອັງກິດ',
+          'Last Name LA': 'ນາມສະກຸນພາສາລາວ',
+          'Last Name Lao': 'ນາມສະກຸນພາສາລາວ',
+          'Email': 'ອີເມວ',
+          'Email for Login': 'ອີເມວສຳລັບເຂົ້າລະບົບ',
+          'New Password': 'ລະຫັດໄຫ່ມ',
+          'Retry Password': 'ຢັ້ງຢືນລະຫັດ',
+          'Enter password again': 'ໄສ່ລະຫັດອີກເທື່ອ',
+          'loading': 'ກຳລັງໂຫຼດ...',
+          'Register Done': 'ລົງທະບຽນສຳລເລັດ',
+        },
       };
 }

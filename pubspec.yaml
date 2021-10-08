@@ -38,6 +38,9 @@ dependencies:
   get: ^4.3.4
   shared_preferences: ^2.0.8
   http: ^0.13.3
+  intl_phone_number_input: ^0.7.0+2
+  pinput: ^1.2.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

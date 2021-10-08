@@ -1,8 +1,12 @@
 // ignore_for_file: avoid_unnecessary_containers
 
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:ebank_demo/pages/api/api.dart';
+import 'package:ebank_demo/pages/class/login.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
+import 'package:ebank_demo/pages/home/root_page/root_home.dart';
 import 'package:ebank_demo/pages/language/change_language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +16,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'class.dart';
 import 'constant.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,6 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isObscure = true, btnCheck = false;
   int closeAD = 1;
   double adSize = 80.00;
+  final regisData = Get.put(ClassLogin());
+  bool memPass = true;
 
   // String sName, sPass;
   // final regisController = Get.put(RegisterClass());
@@ -37,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     // TODO: implement initState
-
+    getEmailData();
     super.initState();
   }
 
@@ -54,39 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
             bottomNavigationBar: bottomBox(),
             body: Stack(
               children: [
-                // Align(
-                //   alignment: Alignment.bottomCenter,
-                //   child: Column(
-                //     mainAxisAlignment: MainAxisAlignment.end,
-                //     children: [
-                //       InkWell(
-                //         onTap: () {
-                //           //   Get.to(() => SinInInfo(),
-                //           // transition: Transition.rightToLeft);
-                //         },
-                //         child: Container(
-                //           height: 90,
-                //           // width: 200,
-                //           color: appColor,
-                //           child: Stack(
-                //             children: [
-                //               Positioned(
-                //                   top: 1,
-                //                   left: 1,
-                //                   child: IconButton(
-                //                       onPressed: () {},
-                //                       icon: const Icon(
-                //                         Icons.close,
-                //                         color: appColor,
-                //                       )))
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-
                 Center(
                   child: Container(
                     color: Colors.white,
@@ -124,12 +98,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: [
                                 TextField(
                                   controller: userName,
-                                  onChanged: (value) {
-                                    userName.text = value;
-                                    userName.selection =
-                                        TextSelection.fromPosition(TextPosition(
-                                            offset: userName.text.length));
-                                  },
+                                  // onChanged: (value) {
+                                  //   userName.text = value;
+                                  //   userName.selection =
+                                  //       TextSelection.fromPosition(TextPosition(
+                                  //           offset: userName.text.length));
+                                  // },
                                   // controller: userName,
                                   style: dartStyle.copyWith(height: 2),
                                   keyboardType: TextInputType.name,
@@ -156,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                     prefixIcon: const Icon(
-                                      Icons.person,
+                                      Icons.email,
                                       color: appColor,
                                     ),
                                   ),
@@ -210,7 +184,41 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 15),
+                                const SizedBox(height: 5),
+                                Row(
+                                  // mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Checkbox(
+                                              // checkColor: appColor,
+                                              side: const BorderSide(
+                                                // ======> CHANGE THE BORDER COLOR HERE <======
+                                                color: Colors.grey,
+                                                // Give your checkbox border a custom width
+                                                width: 1.5,
+                                              ),
+                                              activeColor: appColor,
+                                              value: memPass,
+                                              onChanged: (_) {
+                                                setState(() {
+                                                  memPass
+                                                      ? memPass = false
+                                                      : memPass = true;
+                                                });
+                                              }),
+                                          Text(
+                                            'Remember Email'.tr,
+                                            style: const TextStyle(
+                                              color: appColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 // ignore: sized_box_for_whitespace
                                 Container(
                                   width: 200,
@@ -226,6 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               : btnCheck = false;
                                         });
                                         // await getLoginUser();
+                                        await buttonPress();
                                       },
                                       child: Container(
                                           margin: const EdgeInsets.all(5),
@@ -255,26 +264,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 5),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.end,
-                                //   children: [
-                                //     InkWell(
-                                //       onTap: () {
-                                //         // Get.to(() => PhoneFineForgot(),
-                                //         //     transition: Transition.rightToLeft);
-                                //       },
-                                //       child: Container(
-                                //         child: Text(
-                                //           'Forgot Password?',
-                                //           style: TextStyle(
-                                //             color: Colors.green,
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
                               ],
                             ),
                           ),
@@ -333,7 +322,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.topLeft,
                 child: IconButton(
                   icon: Icon(
-                    adSize == 80.00 ? Icons.close : Icons.arrow_upward,
+                    adSize == 80.00 ? Icons.arrow_downward : Icons.arrow_upward,
                     color: Colors.white,
                   ),
                   onPressed: () {
@@ -353,21 +342,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text(
                           'welcome'.tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                         Text(
                           'This Application created By tontanh'.tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                         Text(
                           'Created for testig E-BANK Like BCEL One'.tr,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
@@ -382,5 +371,68 @@ class _LoginScreenState extends State<LoginScreen> {
         )
       ],
     );
+  }
+
+  buttonPress() async {
+    String uName = userName.text;
+    // print(uName);
+    if (memPass) {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString('uEmail', uName);
+    }
+    await loginUser();
+  }
+
+  getEmailData() async {
+    String? uE;
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    uE = pref.getString('uEmail');
+    userName.text = uE!;
+  }
+
+  Future<http.Response?> loginUser() async {
+    var url = Uri.parse(apiLogin);
+    var body =
+        json.encode({"email": "${userName.text}", "password": "${pwd.text}"});
+
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+    final response = await http.post(url, body: body, headers: headers);
+    final responseJson = json.decode(response.body);
+    if (userName == null ||
+        userName.text == '' ||
+        pwd.text == '' ||
+        pwd == null) {
+      ShowToast().showLoginFailed(msg: 'Please input User Name or Password');
+      setState(() {
+        btnCheck = false;
+      });
+    } else {
+      if (response.statusCode == 200) {
+        int id = responseJson['id'];
+        String jwt = responseJson['token'];
+        regisData.uid = '${id}'.obs;
+        regisData.jwt = '${jwt}'.obs;
+        //save local
+        //delay
+        Future.delayed(Duration(seconds: 1), () {
+          Get.offAll(() => RootHomePage(), transition: Transition.zoom);
+          setState(() {
+            btnCheck = false;
+          });
+        });
+      } else {
+        Future.delayed(Duration(seconds: 1), () {
+          // ShowDialogs().alertWarning(msg: 'User Name or Password incorrect');
+          ShowToast().showLoginFailed(msg: 'User Name or Password incorrect');
+          setState(() {
+            btnCheck = false;
+          });
+        });
+      }
+    }
   }
 }
