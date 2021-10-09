@@ -11,4 +11,5 @@ class ClassLoginData extends GetxController {
   RxString userinfo_tell = 'unknown'.obs;
   RxString email = 'unknown'.obs;
   RxString password = 'unknown'.obs;
+  RxString accountNumber = 'unknown'.obs;
 }

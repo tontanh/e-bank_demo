@@ -1,7 +1,7 @@
 // port
 const port = "8000";
 // io
-const ip = "192.168.10.154";
+const ip = "192.168.43.107";
 // server check
 const apiServer = "http://$ip:$port/api/users/server/";
 // login
@@ -17,3 +17,5 @@ const apiCreateAll = "http://$ip:$port/api/users/register";
 
 // check mail
 const apiCheckMail = "http://$ip:$port/api/users/";
+
+const apiCreateCard = "http://$ip:$port/api/cards/create";

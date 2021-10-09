@@ -13,7 +13,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class RootHomePage extends StatefulWidget {
-  const RootHomePage({Key? key}) : super(key: key);
+  // ignore: prefer_const_constructors_in_immutables
+  RootHomePage({Key? key}) : super(key: key);
 
   @override
   _RootHomePageState createState() => _RootHomePageState();
@@ -56,7 +57,6 @@ class _RootHomePageState extends State<RootHomePage> {
                 MaterialButton(
                   minWidth: 40,
                   onPressed: () {
-                   
                     setState(() {
                       currentTab = 0;
                       currentScreen = screen[currentTab];

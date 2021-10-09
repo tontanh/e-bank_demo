@@ -65,6 +65,9 @@ class LocalString extends Translations {
           'Enter password again': 'Enter password again',
           'loading': 'loading',
           'Register Done': 'Register Done',
+          'kip': 'kip',
+          'you have': 'you have',
+          'Your Account': 'Your Account',
         },
         // Lao language
         'la_LA': {
@@ -129,6 +132,9 @@ class LocalString extends Translations {
           'Enter password again': 'ໄສ່ລະຫັດອີກເທື່ອ',
           'loading': 'ກຳລັງໂຫຼດ...',
           'Register Done': 'ລົງທະບຽນສຳລເລັດ',
+          'kip': 'ກິບ',
+          'you have': 'ເຈັ້າມີ',
+          'Your Account': 'ບັນຊີ',
         },
       };
 }

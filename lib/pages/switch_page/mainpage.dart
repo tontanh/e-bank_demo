@@ -68,7 +68,7 @@ class _SwitchScreenState extends State<SwitchScreen> {
       final responseJson = json.decode(response.body);
       if (response.statusCode == 200) {
         Future.delayed(Duration(seconds: 2), () {
-          Get.offAll(() => HomePage(), transition: Transition.zoom);
+          Get.off(() => HomePage(), transition: Transition.zoom);
         });
       } else {
         Get.to(() => const ErrorPages(), transition: Transition.zoom);

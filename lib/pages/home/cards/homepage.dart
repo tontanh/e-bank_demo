@@ -272,8 +272,10 @@ class _CardPageState extends State<CardPage> {
         IconButton(
             onPressed: () {
               pageIndex.cardPage = '1'.obs;
+              // setState(() {
               Get.offAll(() => RootHomePage(),
                   transition: Transition.noTransition);
+              // });
             },
             icon: Icon(Icons.arrow_back)),
       ],

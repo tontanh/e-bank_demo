@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ebank_demo/pages/class/login_data.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
 
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
@@ -23,16 +24,21 @@ class CardListPage extends StatefulWidget {
 
 class _CardListPageState extends State<CardListPage> {
   final pageIndex = Get.put(PageNextCard());
+
   String? page;
 
-  @override
-  void initState() {
-    page = '${pageIndex.cardPage}';
-    super.initState();
-  }
+  final userData = Get.put(ClassLoginUsers());
+
+  // @override
+  // void initState() {
+  //   page = '${pageIndex.cardPage}';
+
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    page = '${pageIndex.cardPage}';
     return thisBody();
   }
 
@@ -44,6 +50,7 @@ class _CardListPageState extends State<CardListPage> {
               backgroundColor: appColor,
               centerTitle: true,
               title: Text('NAYOBY BANK'.tr),
+
               // leading: leadingWidget(),
               actions: [
                 IconButton(
@@ -112,7 +119,7 @@ class _CardListPageState extends State<CardListPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Tontanh keomanyvong',
+                          'Tontanh ${userData.uid}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
@@ -235,12 +242,12 @@ class _CardListPageState extends State<CardListPage> {
                         children: [
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 'VISA Card',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               Text(
                                 '(Close)'.tr,
                                 style: TextStyle(color: Colors.red),

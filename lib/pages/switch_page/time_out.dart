@@ -35,7 +35,7 @@ class _ErrorPagesState extends State<ErrorPages> {
             TextButton(
               // style: TextButton.styleFrom(backgroundColor: Colors.grey[300]),
               onPressed: () {
-                Get.offAll(() => SwitchScreen(), transition: Transition.zoom);
+                Get.off(() => SwitchScreen(), transition: Transition.zoom);
               },
               child: Text(
                 'try again',

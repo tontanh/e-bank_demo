@@ -1,12 +1,17 @@
+import 'package:ebank_demo/pages/constant/data.dart';
 import 'package:ebank_demo/pages/login_root/root.dart';
+import 'package:ebank_demo/pages/register/class.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class AllDone extends StatelessWidget {
-  const AllDone({Key? key}) : super(key: key);
-
-  get appColor => null;
+  AllDone({Key? key}) : super(key: key);
+  final regisController = Get.put(ClassLoginData());
+  // get appColor => null;
+  String youHave = 'you have'.tr;
+  String kip = 'kip'.tr;
+  String youAc = 'Your Account'.tr;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +36,17 @@ class AllDone extends StatelessWidget {
                 ),
               ],
             ),
+            Text(
+              '$youAc ${regisController.accountNumber}',
+              style: const TextStyle(fontSize: 18),
+            ),
+            Text(
+              '$youHave 5,000,000 $kip',
+              style: const TextStyle(fontSize: 18),
+            ),
             Container(
                 width: 120,
-                margin: EdgeInsets.symmetric(vertical: 5),
+                margin: const EdgeInsets.symmetric(vertical: 5),
                 child: TextButton(
                   onPressed: () {
                     Get.offAll(() => const HomePage(),
@@ -41,7 +54,7 @@ class AllDone extends StatelessWidget {
                   },
                   child: Text(
                     'Login'.tr,
-                    style: TextStyle(color: appColor, fontSize: 16),
+                    style: const TextStyle(color: appColor, fontSize: 16),
                   ),
                 )),
           ],

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:ebank_demo/pages/api/api.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
@@ -69,6 +70,7 @@ class _RegisLastNameState extends State<RegisEmailPass> {
                           style: TextStyle(fontSize: 18),
                         ),
                         TextField(
+                          keyboardType: TextInputType.emailAddress,
                           onChanged: (value) {
                             regisController.email = value.obs;
 
@@ -78,11 +80,13 @@ class _RegisLastNameState extends State<RegisEmailPass> {
                           // keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             fillColor: Colors.white,
+
                             filled: true,
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 15,
                               vertical: 10,
                             ),
+
                             hintText: 'Email'.tr,
                             hintStyle: TextStyle(height: 2, color: Colors.grey),
                             enabledBorder: OutlineInputBorder(
@@ -307,7 +311,34 @@ class _RegisLastNameState extends State<RegisEmailPass> {
     };
     final response = await http.post(url, body: body, headers: headers);
     if (response.statusCode == 200) {
-      Get.offAll(() => AllDone(), transition: Transition.zoom);
+      await getRegisterCard(id: id);
+    } else {
+      Fluttertoast.showToast(msg: 'something went wrong');
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+  }
+
+  Future<http.Response?> getRegisterCard({int? id}) async {
+    Random random = Random();
+    String acNo = '${random.nextInt(10000000)}';
+    String acNos = '0101224010200' + acNo;
+    var url = Uri.parse(apiCreateCard);
+    var body = json.encode({
+      "user_id": '$id',
+      "card_money": '5000000',
+      "card_name": 'NBB Classic Card',
+      "card_number": acNos,
+    });
+
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      // 'Authorization': 'Bearer $tokens',
+    };
+    final response = await http.post(url, body: body, headers: headers);
+    if (response.statusCode == 200) {
+      regisController.accountNumber = acNos.obs;
+      Get.off(() => AllDone(), transition: Transition.zoom);
     } else {
       Fluttertoast.showToast(msg: 'something went wrong');
       Navigator.of(context, rootNavigator: true).pop();

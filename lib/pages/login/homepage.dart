@@ -4,8 +4,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:ebank_demo/pages/api/api.dart';
-import 'package:ebank_demo/pages/class/login.dart';
+import 'package:ebank_demo/pages/class/login_data.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
+import 'package:ebank_demo/pages/home/root_page/controler.dart';
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
 import 'package:ebank_demo/pages/language/change_language.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,11 +32,11 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isObscure = true, btnCheck = false;
   int closeAD = 1;
   double adSize = 80.00;
-  final regisData = Get.put(ClassLogin());
+  final regisData = Get.put(PageNextCard());
   bool memPass = true;
 
   // String sName, sPass;
-  // final regisController = Get.put(RegisterClass());
+  final userData = Get.put(ClassLoginUsers());
   // int idUser;
   // UserLoginStat _user;
   TextEditingController userName = TextEditingController();
@@ -388,7 +389,8 @@ class _LoginScreenState extends State<LoginScreen> {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     uE = pref.getString('uEmail');
-    userName.text = uE!;
+    uE == null || uE == '' || uE.isEmpty ? uE = '' : uE = uE;
+    userName.text = uE;
   }
 
   Future<http.Response?> loginUser() async {
@@ -414,12 +416,19 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200) {
         int id = responseJson['id'];
         String jwt = responseJson['token'];
-        regisData.uid = '${id}'.obs;
-        regisData.jwt = '${jwt}'.obs;
+        userData.uid = '$id'.obs;
+        userData.jwt = '$jwt'.obs;
         //save local
         //delay
-        Future.delayed(Duration(seconds: 1), () {
-          Get.offAll(() => RootHomePage(), transition: Transition.zoom);
+        Future.delayed(const Duration(seconds: 1), () {
+          print('${userData.jwt}');
+          print('${userData.uid}');
+          Get.off(() => RootHomePage(), transition: Transition.zoom);
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => RootHomePage()),
+          //   (Route<dynamic> route) => false,
+          // );
           setState(() {
             btnCheck = false;
           });
