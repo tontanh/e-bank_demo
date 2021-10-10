@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ebank_demo/pages/class/login_data.dart';
+import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
 
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
@@ -11,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:provider/provider.dart';
 
 import '../root_page/controler.dart';
 import 'homepage.dart';
@@ -26,8 +27,9 @@ class _CardListPageState extends State<CardListPage> {
   final pageIndex = Get.put(PageNextCard());
 
   String? page;
+  int? uids;
 
-  final userData = Get.put(ClassLoginUsers());
+  // final userData = Get.put(ClassLoginUsers());
 
   // @override
   // void initState() {
@@ -38,7 +40,10 @@ class _CardListPageState extends State<CardListPage> {
 
   @override
   Widget build(BuildContext context) {
+    final DataUserLogins userAcccess = Provider.of<DataUserLogins>(context);
     page = '${pageIndex.cardPage}';
+    uids = userAcccess.uIdGet;
+
     return thisBody();
   }
 
@@ -119,7 +124,7 @@ class _CardListPageState extends State<CardListPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Tontanh ${userData.uid}',
+                          'Tontanh ${uids.toString()}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
@@ -349,7 +354,6 @@ class _CardListPageState extends State<CardListPage> {
                 margin: const EdgeInsets.only(right: 15),
                 height: 70,
                 width: 70,
-                // color: appColor,
                 child: Image.asset('assets/images/nbb_pay.png'),
               ),
             ],

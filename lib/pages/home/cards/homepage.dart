@@ -277,7 +277,7 @@ class _CardPageState extends State<CardPage> {
                   transition: Transition.noTransition);
               // });
             },
-            icon: Icon(Icons.arrow_back)),
+            icon: const Icon(Icons.arrow_back)),
       ],
     );
   }

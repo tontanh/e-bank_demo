@@ -49,7 +49,7 @@ class AllDone extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 child: TextButton(
                   onPressed: () {
-                    Get.offAll(() => const HomePage(),
+                    Get.off(() => const HomePage(),
                         transition: Transition.zoom);
                   },
                   child: Text(

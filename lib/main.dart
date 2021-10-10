@@ -1,8 +1,10 @@
+import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
 import 'package:ebank_demo/pages/language/language.dart';
 import 'package:ebank_demo/pages/switch_page/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'pages/login_root/root.dart';
 
@@ -26,18 +28,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      translations: LocalString(),
-      // locale: Locale('$languageCode'),
-      title: 'E-Banking Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        // primaryColor: appColor,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<DataUserLogins>.value(value: DataUserLogins())
+        //  Provider<DataUserLogins>(create: (_) => DataUserLogins()),
+      ],
+      child: GetMaterialApp(
+        translations: LocalString(),
+        // locale: Locale('$languageCode'),
+        title: 'E-Banking Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+          // primaryColor: appColor,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const SwitchScreen(),
+        // home: const RootHomePage(),
+        // home: const HomePage(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const SwitchScreen(),
-      // home: const RootHomePage(),
-      // home: const HomePage(),
     );
   }
 

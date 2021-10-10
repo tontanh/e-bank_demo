@@ -3,9 +3,6 @@ import 'package:ebank_demo/pages/home/cards/card.dart';
 import 'package:ebank_demo/pages/home/cards/homepage.dart';
 import 'package:ebank_demo/pages/home/messages/ms.dart';
 import 'package:ebank_demo/pages/home/setting/settings.dart';
-import 'package:ebank_demo/pages/login/homepage.dart';
-import 'package:ebank_demo/pages/login_root/constant.dart';
-import 'package:ebank_demo/pages/register/homepage.dart';
 
 import 'package:ebank_demo/pages/service/mainpage.dart';
 import 'package:flutter/material.dart';

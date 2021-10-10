@@ -4,16 +4,18 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:ebank_demo/pages/api/api.dart';
-import 'package:ebank_demo/pages/class/login_data.dart';
+import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
 import 'package:ebank_demo/pages/home/root_page/controler.dart';
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
 import 'package:ebank_demo/pages/language/change_language.dart';
+import 'package:ebank_demo/pages/test/testpage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,9 +36,10 @@ class _LoginScreenState extends State<LoginScreen> {
   double adSize = 80.00;
   final regisData = Get.put(PageNextCard());
   bool memPass = true;
+  String? jwts;
+  int? uids;
 
   // String sName, sPass;
-  final userData = Get.put(ClassLoginUsers());
   // int idUser;
   // UserLoginStat _user;
   TextEditingController userName = TextEditingController();
@@ -51,6 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final DataUserLogins userAcess = Provider.of<DataUserLogins>(context);
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -234,8 +239,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ? btnCheck = true
                                               : btnCheck = false;
                                         });
+                                        // ignore: avoid_print
+
                                         // await getLoginUser();
                                         await buttonPress();
+                                        userAcess.jwtSet = jwts;
+                                        userAcess.uIdSet = uids;
                                       },
                                       child: Container(
                                           margin: const EdgeInsets.all(5),
@@ -416,19 +425,10 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200) {
         int id = responseJson['id'];
         String jwt = responseJson['token'];
-        userData.uid = '$id'.obs;
-        userData.jwt = '$jwt'.obs;
-        //save local
-        //delay
+        uids = id;
+        jwts = jwt;
         Future.delayed(const Duration(seconds: 1), () {
-          print('${userData.jwt}');
-          print('${userData.uid}');
           Get.off(() => RootHomePage(), transition: Transition.zoom);
-          // Navigator.pushAndRemoveUntil(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => RootHomePage()),
-          //   (Route<dynamic> route) => false,
-          // );
           setState(() {
             btnCheck = false;
           });
