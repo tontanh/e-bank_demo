@@ -244,6 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                         // await getLoginUser();
                                         await buttonPress();
+                                        userAcess.emailSet = userName.text;
                                         userAcess.jwtSet = jwts;
                                         userAcess.uIdSet = uids;
                                       },

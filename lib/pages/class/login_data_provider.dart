@@ -22,10 +22,10 @@ class DataUserLogins with ChangeNotifier {
     notifyListeners();
   }
 
-  // String? _notiToken;
-  // String? get notiTokenGet => _notiToken;
-  // set notiTokenSet(String? newName) {
-  //   _notiToken = newName;
-  //   notifyListeners();
-  // }
+  String? _email;
+  String? get emailGet => _email;
+  set emailSet(String? newName) {
+    _email = newName;
+    notifyListeners();
+  }
 }

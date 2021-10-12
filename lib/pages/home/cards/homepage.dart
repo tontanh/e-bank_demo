@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:ebank_demo/pages/api/api.dart';
+import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
 import 'package:ebank_demo/pages/home/root_page/controler.dart';
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -75,7 +78,7 @@ class _CardPageState extends State<CardPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('44684 4648 xxxx xxxx'),
+                                Text('0101 2240 10200 xxxxxxx'),
                                 SizedBox(
                                   height: 5,
                                 ),

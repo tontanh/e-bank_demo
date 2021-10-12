@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:ebank_demo/pages/api/api.dart';
 import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
 import 'package:ebank_demo/pages/home/myqr_code/myqr_code.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
 import 'package:ebank_demo/pages/home/scanner/scan.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class CardListPage extends StatefulWidget {
 
 class _CardListPageState extends State<CardListPage> {
   final pageIndex = Get.put(PageNextCard());
-
+  String? fLa, lLa, fEn, lEn, email;
   String? page;
   int? uids;
   String close = '(Close)'.tr;
@@ -35,9 +37,20 @@ class _CardListPageState extends State<CardListPage> {
   Widget build(BuildContext context) {
     final DataUserLogins userAcccess = Provider.of<DataUserLogins>(context);
     page = '${pageIndex.cardPage}';
-    uids = userAcccess.uIdGet;
-
-    return thisBody();
+    email = userAcccess.emailGet;
+    return FutureBuilder(
+      future:
+          getData(uid: '${userAcccess.uIdGet}', token: '${userAcccess.jwtGet}'),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return thisBody();
+        } else {
+          return thisBody();
+        }
+        // ignore: dead_code
+        return loading();
+      },
+    );
   }
 
   thisBody() {
@@ -117,14 +130,14 @@ class _CardListPageState extends State<CardListPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Tontanh ${uids.toString()}',
+                          '$fEn $lEn',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         SizedBox(height: 5),
-                        Text('ຕົ້ນຕານ ແກ້ວມະນີວົງ '),
+                        Text('$fLa $lLa '),
                         SizedBox(height: 3),
-                        Text('tonkmnv@gmail.com'),
+                        Text('$email'),
                       ],
                     ),
                   ),
@@ -147,7 +160,9 @@ class _CardListPageState extends State<CardListPage> {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Fluttertoast.showToast(msg: 'Close'.tr);
+              },
               child: Text(
                 'Edit'.tr,
                 style: TextStyle(color: Colors.black),
@@ -191,15 +206,15 @@ class _CardListPageState extends State<CardListPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'NBB Classic Card',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
-                          SizedBox(height: 5),
-                          Text('020202 20202 9484848 15'),
-                          SizedBox(height: 3),
-                          Text('Tontanh keomanyvong'),
+                          const SizedBox(height: 5),
+                          const Text('0101 2240 10200 xxxxxxx'),
+                          const SizedBox(height: 3),
+                          Text('$fEn $lEn'),
                         ],
                       ),
                     ),
@@ -253,9 +268,9 @@ class _CardListPageState extends State<CardListPage> {
                             ],
                           ),
                           SizedBox(height: 5),
-                          Text('ຕົ້ນຕານ ແກ້ວມະນີວົງ '),
+                          Text('$fLa $lLa '),
                           SizedBox(height: 3),
-                          Text('tonkmnv@gmail.com'),
+                          Text('$email'),
                         ],
                       ),
                     ),
@@ -379,5 +394,42 @@ class _CardListPageState extends State<CardListPage> {
         )
       ],
     );
+  }
+
+  loading() {
+    return const Scaffold(
+      body: Center(
+        child: Text('Loading...'),
+      ),
+    );
+  }
+
+  Future<http.Response?> getData({String? uid, token}) async {
+    var url = Uri.parse(apiGetUserInfo + '$uid');
+    // var body =
+    //     json.encode({"email": "${userName.text}", "password": "${pwd.text}"});
+
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    final response = await http.get(url, headers: headers);
+    final responseJson = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      fLa = responseJson["userinfo_firstname_la"];
+      lLa = responseJson["userinfo_lastname_la"];
+      fEn = responseJson["userinfo_firstname_en"];
+      lEn = responseJson["userinfo_lastname_en"];
+    } else if (response.statusCode == 401) {
+      // if (Platform.isAndroid) {
+      //   SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      // } else if (Platform.isIOS) {
+      //   exit(0);
+      // }
+    } else {
+      print('wrong');
+    }
   }
 }
