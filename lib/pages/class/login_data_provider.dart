@@ -1,19 +1,10 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
-// class ClassLoginUsers extends GetxController {
-//   RxString uid = 'unknown'.obs;
-//   RxString jwt = 'unknown'.obs;
-
-//   @override
-//   void onClose() {
-//     print("onClose testttt");
-
-//     super.onClose();
-//   }
-// }
-
 import 'package:flutter/material.dart';
+
+class ClassLoginUsers extends GetxController {
+  RxString notiToken = 'unknown'.obs;
+}
 
 class DataUserLogins with ChangeNotifier {
   // ignore: prefer_final_fields
@@ -30,4 +21,11 @@ class DataUserLogins with ChangeNotifier {
     _jwt = newName;
     notifyListeners();
   }
+
+  // String? _notiToken;
+  // String? get notiTokenGet => _notiToken;
+  // set notiTokenSet(String? newName) {
+  //   _notiToken = newName;
+  //   notifyListeners();
+  // }
 }

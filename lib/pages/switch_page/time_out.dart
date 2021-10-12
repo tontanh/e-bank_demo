@@ -1,3 +1,4 @@
+import 'package:ebank_demo/main.dart';
 import 'package:ebank_demo/pages/switch_page/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,16 +29,16 @@ class _ErrorPagesState extends State<ErrorPages> {
               width: 130,
               height: 130,
             ),
-            SizedBox(height: 5),
-            Text(
+            const SizedBox(height: 5),
+            const Text(
               'Could not connect to server',
             ),
             TextButton(
               // style: TextButton.styleFrom(backgroundColor: Colors.grey[300]),
               onPressed: () {
-                Get.off(() => SwitchScreen(), transition: Transition.zoom);
+                Get.off(() => const MyApp(), transition: Transition.zoom);
               },
-              child: Text(
+              child: const Text(
                 'try again',
                 style: TextStyle(color: Colors.black),
               ),

@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
+import 'package:ebank_demo/pages/home/myqr_code/myqr_code.dart';
 
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
+import 'package:ebank_demo/pages/home/scanner/scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,16 +30,7 @@ class _CardListPageState extends State<CardListPage> {
 
   String? page;
   int? uids;
-
-  // final userData = Get.put(ClassLoginUsers());
-
-  // @override
-  // void initState() {
-  //   page = '${pageIndex.cardPage}';
-
-  //   super.initState();
-  // }
-
+  String close = '(Close)'.tr;
   @override
   Widget build(BuildContext context) {
     final DataUserLogins userAcccess = Provider.of<DataUserLogins>(context);
@@ -284,77 +277,102 @@ class _CardListPageState extends State<CardListPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: Colors.grey[300]),
-                    height: 50,
-                    width: 50,
-                    // color: appColor,
-                    child: Center(
-                      child: Container(
-                        height: 35,
-                        width: 35,
-                        // color: appColor,
-                        child: SvgPicture.asset(
-                          'assets/icons/headphone.svg',
-                          color: appColor,
+              InkWell(
+                onTap: () {
+                  Fluttertoast.showToast(msg: 'Close'.tr);
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 20),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.grey[300]),
+                      height: 50,
+                      width: 50,
+                      // color: appColor,
+                      child: Center(
+                        child: Container(
+                          height: 35,
+                          width: 35,
+                          // color: appColor,
+                          child: SvgPicture.asset(
+                            'assets/icons/headphone.svg',
+                            color: appColor,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 15),
-                    child: const Text(
-                      'NBB Care',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  )
-                ],
+                    Container(
+                      margin: const EdgeInsets.only(right: 15),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'NBB Care',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          Text(
+                            '$close',
+                            style: TextStyle(fontSize: 12, color: Colors.red),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: Colors.grey[300]),
-                    height: 50,
-                    width: 50,
-                    // color: appColor,
-                    child: Center(
-                      child: Container(
-                        height: 35,
-                        width: 35,
-                        // color: appColor,
-                        child: SvgPicture.asset(
-                          'assets/icons/qr_code.svg',
-                          color: appColor,
+              InkWell(
+                onTap: () {
+                  Get.to(() => const QRCodeMainPage(),
+                      transition: Transition.zoom);
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 20),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.grey[300]),
+                      height: 50,
+                      width: 50,
+                      // color: appColor,
+                      child: Center(
+                        child: Container(
+                          height: 35,
+                          width: 35,
+                          // color: appColor,
+                          child: SvgPicture.asset(
+                            'assets/icons/qr_code.svg',
+                            color: appColor,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 15),
-                    child: const Text(
-                      'My Qr',
-                      style: TextStyle(fontSize: 12),
+                    Container(
+                      margin: const EdgeInsets.only(right: 15),
+                      child: const Text(
+                        'My Qr',
+                        style: TextStyle(fontSize: 12),
+                      ),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
-              Container(
-                margin: const EdgeInsets.only(right: 15),
-                height: 70,
-                width: 70,
-                child: Image.asset('assets/images/nbb_pay.png'),
+              InkWell(
+                onTap: () {
+                  Get.to(() => const QRViewExample(),
+                      transition: Transition.zoom);
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(right: 15),
+                  height: 70,
+                  width: 70,
+                  child: Image.asset('assets/images/nbb_pay.png'),
+                ),
               ),
             ],
           ),

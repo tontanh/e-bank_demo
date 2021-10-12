@@ -68,6 +68,8 @@ class LocalString extends Translations {
           'kip': 'kip',
           'you have': 'you have',
           'Your Account': 'Your Account',
+          'This is your QR Code': 'This is your QR Code',
+          'Cancel': 'Cancel',
         },
         // Lao language
         'la_LA': {
@@ -135,6 +137,8 @@ class LocalString extends Translations {
           'kip': 'ກິບ',
           'you have': 'ເຈັ້າມີ',
           'Your Account': 'ບັນຊີ',
+          'This is your QR Code': 'ນີ້ແມ່ນ QR Code ຂອງທ່ານ',
+          'Cancel': 'ຍົກເລີກ',
         },
       };
 }

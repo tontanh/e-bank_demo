@@ -35,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
   int closeAD = 1;
   double adSize = 80.00;
   final regisData = Get.put(PageNextCard());
+  final notiData = Get.put(ClassLoginUsers());
   bool memPass = true;
   String? jwts;
   int? uids;
@@ -427,12 +428,7 @@ class _LoginScreenState extends State<LoginScreen> {
         String jwt = responseJson['token'];
         uids = id;
         jwts = jwt;
-        Future.delayed(const Duration(seconds: 1), () {
-          Get.off(() => RootHomePage(), transition: Transition.zoom);
-          setState(() {
-            btnCheck = false;
-          });
-        });
+        await getTokenNotification(uid: id);
       } else {
         Future.delayed(Duration(seconds: 1), () {
           // ShowDialogs().alertWarning(msg: 'User Name or Password incorrect');
@@ -442,6 +438,33 @@ class _LoginScreenState extends State<LoginScreen> {
           });
         });
       }
+    }
+  }
+
+  Future<http.Response?> getTokenNotification({int? uid}) async {
+    String token = '${notiData.notiToken}';
+    var url = Uri.parse(apiGetNotiToken);
+    var body = json.encode({"user_id": "$uid", "noti_token": token});
+
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+    final response = await http.post(url, body: body, headers: headers);
+
+    if (response.statusCode == 200) {
+      Future.delayed(const Duration(seconds: 1), () {
+        Get.off(() => RootHomePage(), transition: Transition.zoom);
+        setState(() {
+          btnCheck = false;
+        });
+      });
+    } else {
+      // ShowDialogs().alertWarning(msg: 'User Name or Password incorrect');
+      ShowToast().showLoginFailed(msg: 'Something went wrong');
+      setState(() {
+        btnCheck = false;
+      });
     }
   }
 }

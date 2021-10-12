@@ -1,21 +1,26 @@
 // port
 const port = "8000";
 // io
-const ip = "192.168.43.107";
+// const ip = "127.0.0.1";
+const String ip = "http://192.168.10.154";
 // server check
-const apiServer = "http://$ip:$port/api/users/server/";
+const apiServer = "$ip:$port/api/users/server/";
 // login
-const apiLogin = "http://$ip:$port/api/users/login";
+const apiLogin = "$ip:$port/api/users/login";
 
 //phone check already
-const apiCheckPhone = "http://$ip:$port/api/users/tell/";
+const apiCheckPhone = "$ip:$port/api/users/tell/";
 //phone check already
-const apiCreateUser = "http://$ip:$port/api/users";
+const apiCreateUser = "$ip:$port/api/users";
 
 // register all
-const apiCreateAll = "http://$ip:$port/api/users/register";
+const apiCreateAll = "$ip:$port/api/users/register";
 
 // check mail
-const apiCheckMail = "http://$ip:$port/api/users/";
-
-const apiCreateCard = "http://$ip:$port/api/cards/create";
+const apiCheckMail = "$ip:$port/api/users/";
+//create card
+const apiCreateCard = "$ip:$port/api/cards/create";
+// show card
+const apiShowCard = "$ip:$port/api/cards/show/";
+// create notification
+const apiGetNotiToken = "$ip:$port/api/cards/notification";

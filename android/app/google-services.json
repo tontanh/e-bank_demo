@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "938852810157",
+    "project_id": "e-bank-demo",
+    "storage_bucket": "e-bank-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938852810157:android:a31c8c56472e1c1379f524",
+        "android_client_info": {
+          "package_name": "com.example.ebank_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938852810157-9tkofs6jlrove40s5agsn94eptplns6s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ebank_demo",
+            "certificate_hash": "f3ce0b3f1197916f1f428cfe52799e3bb94a738b"
+          }
+        },
+        {
+          "client_id": "938852810157-1b4mgd67uu5btibok4n4okhj5fs4t0p5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQtlXVKzpcIesX2pFQtAOdVFuhtsEp_pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938852810157-1b4mgd67uu5btibok4n4okhj5fs4t0p5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

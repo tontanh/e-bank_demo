@@ -4,20 +4,24 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ebank_demo/main.dart';
 import 'package:ebank_demo/pages/api/api.dart';
+import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/login/homepage.dart';
 import 'package:ebank_demo/pages/login_root/root.dart';
 import 'package:ebank_demo/pages/switch_page/time_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'screenloading.dart';
 
 class SwitchScreen extends StatefulWidget {
-  const SwitchScreen({Key? key}) : super(key: key);
+  final String notiToken;
+  const SwitchScreen({Key? key, required this.notiToken}) : super(key: key);
 
   @override
   _SwitchScreenState createState() => _SwitchScreenState();
@@ -26,6 +30,7 @@ class SwitchScreen extends StatefulWidget {
 class _SwitchScreenState extends State<SwitchScreen> {
   // String sName, sPass, sToken, sId;
   // final regisController = Get.put(RegisterClass());
+  final notiData = Get.put(ClassLoginUsers());
   @override
   void initState() {
     super.initState();
@@ -33,6 +38,8 @@ class _SwitchScreenState extends State<SwitchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    notiData.notiToken = '${notiToken}'.obs;
+
     return FutureBuilder(
       future: getData(),
       builder: (context, snapshot) {
