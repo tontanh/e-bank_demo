@@ -1,5 +1,4 @@
 import 'package:ebank_demo/pages/class/login_data_provider.dart';
-import 'package:ebank_demo/pages/home/root_page/root_home.dart';
 import 'package:ebank_demo/pages/language/language.dart';
 import 'package:ebank_demo/pages/switch_page/mainpage.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -1,13 +1,18 @@
+import 'dart:convert';
+
+import 'package:ebank_demo/pages/api/api.dart';
+import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
 import 'package:ebank_demo/pages/home/cards/card.dart';
-import 'package:ebank_demo/pages/home/cards/homepage.dart';
 import 'package:ebank_demo/pages/home/messages/ms.dart';
+import 'package:ebank_demo/pages/home/root_page/controler.dart';
 import 'package:ebank_demo/pages/home/setting/settings.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:ebank_demo/pages/service/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class RootHomePage extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -24,11 +29,11 @@ class _RootHomePageState extends State<RootHomePage> {
   Widget? currentScreen;
 
   final PageStorageBucket bucket = PageStorageBucket();
-
+  final getData = Get.put(PageNextCard());
+  String? ac_no;
   @override
   void initState() {
     currentScreen = const CardListPage();
-
     screen = [
       const CardListPage(),
       const MessagePage(),
@@ -40,6 +45,9 @@ class _RootHomePageState extends State<RootHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final DataUserLogins userAcccess = Provider.of<DataUserLogins>(context);
+    getData.ac_no = "${userAcccess.cardGet}".obs;
+    getData.token = "${userAcccess.jwtGet}".obs;
     return Scaffold(
         body: currentScreen,
         bottomNavigationBar: BottomAppBar(

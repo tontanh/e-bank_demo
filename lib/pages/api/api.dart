@@ -26,3 +26,5 @@ const apiShowCard = "$ip:$port/api/cards/show/";
 const apiGetNotiToken = "$ip:$port/api/cards/notification";
 // create notification
 const apiGetUserInfo = "$ip:$port/api/users/info/";
+// his transfer
+const apiHisTransfer = "$ip:$port/api/cards/history/trans";

@@ -28,4 +28,11 @@ class DataUserLogins with ChangeNotifier {
     _email = newName;
     notifyListeners();
   }
+
+  String? _card;
+  String? get cardGet => _card;
+  set cardSet(String? newName) {
+    _card = newName;
+    notifyListeners();
+  }
 }

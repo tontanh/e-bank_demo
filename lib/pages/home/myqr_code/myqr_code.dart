@@ -122,11 +122,11 @@ class _QRCodeMainPageState extends State<QRCodeMainPage> {
     if (response.statusCode == 200) {
       controlText.text = responseJson['card_number'];
     } else if (response.statusCode == 401) {
-      if (Platform.isAndroid) {
-        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-      } else if (Platform.isIOS) {
-        exit(0);
-      }
+      // if (Platform.isAndroid) {
+      //   SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      // } else if (Platform.isIOS) {
+      //   exit(0);
+      // }
     } else {
       print('wrong');
     }

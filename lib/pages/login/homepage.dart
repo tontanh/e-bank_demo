@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final notiData = Get.put(ClassLoginUsers());
   bool memPass = true;
   String? jwts;
+  String? cards;
   int? uids;
 
   // String sName, sPass;
@@ -247,6 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         userAcess.emailSet = userName.text;
                                         userAcess.jwtSet = jwts;
                                         userAcess.uIdSet = uids;
+                                        userAcess.cardSet = cards;
                                       },
                                       child: Container(
                                           margin: const EdgeInsets.all(5),
@@ -454,6 +456,30 @@ class _LoginScreenState extends State<LoginScreen> {
     final response = await http.post(url, body: body, headers: headers);
 
     if (response.statusCode == 200) {
+      await cardShow(uid: uid);
+    } else {
+      // ShowDialogs().alertWarning(msg: 'User Name or Password incorrect');
+      ShowToast().showLoginFailed(msg: 'Something went wrong');
+      setState(() {
+        btnCheck = false;
+      });
+    }
+  }
+
+  Future<http.Response?> cardShow({int? uid}) async {
+    var url = Uri.parse(apiShowCard + '$uid');
+    // var body =
+    //     json.encode({"email": "${userName.text}", "password": "${pwd.text}"});
+
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+    final response = await http.get(url, headers: headers);
+    final responseJson = json.decode(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      cards = responseJson['card_number'];
       Future.delayed(const Duration(seconds: 1), () {
         Get.off(() => RootHomePage(), transition: Transition.zoom);
         setState(() {
@@ -461,10 +487,12 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       });
     } else {
-      // ShowDialogs().alertWarning(msg: 'User Name or Password incorrect');
-      ShowToast().showLoginFailed(msg: 'Something went wrong');
-      setState(() {
-        btnCheck = false;
+      Future.delayed(Duration(seconds: 1), () {
+        // ShowDialogs().alertWarning(msg: 'User Name or Password incorrect');
+        ShowToast().showLoginFailed(msg: 'Something went wrong');
+        setState(() {
+          btnCheck = false;
+        });
       });
     }
   }
