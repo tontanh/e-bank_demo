@@ -367,6 +367,8 @@ class _TransferPageAccountState extends State<TranAmountPage> {
     final response = await http.post(url, body: body, headers: headers);
     if (response.statusCode == 200) {
       await sentNoti();
+      await receiveNoti();
+      Get.off(() => TransDone(), transition: Transition.zoom);
     } else {
       // ShowDialogs().alertWarning(msg: 'User Name or Password incorrect');
       Fluttertoast.showToast(msg: 'something went wrong');
@@ -374,17 +376,49 @@ class _TransferPageAccountState extends State<TranAmountPage> {
   }
 
   Future<http.Response?> sentNoti() async {
-    String ac_add, money, ac_memus;
+    String ac_add, money, ac_memus, tokenNoti;
     ac_add = "${infoTransfer.cardNumber}";
     ac_memus = cardMe!;
     money = moneyInput.text;
+    tokenNoti = "${infoTransfer.tokenNotiMe}";
+
     var url = Uri.parse(apiNoti);
     var body = json.encode({
-      "to":
-          "fs0YiHbdRCOQ57GlTthgoh:APA91bHvMeg5_wqcA68IQwc-vAkzjL_8UKnZLyhtWmM84Q2p6li6-_UC6JVUl_y0A1LDvRSq0z_kj3-Ko4lOs5KudatkLjGOfRcrFfJEmC2oYh_yiX5sLeGIyETVJzB0vXKn51oEJiH4",
+      "to": "$tokenNoti",
       "notification": {
         "title": "You Transfer to ${infoTransfer.namRe} ${infoTransfer.lastRe}",
         "body": "- $money kip",
+        "mutable_content": true,
+        "sound": "Tri-tone"
+      }
+    });
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Authorization':
+          'key=AAAA2pf8_a0:APA91bFVi3leh1yf8SLabK7Cj0yoUKtTuSJEPyKzIOwfy6JNgkZyF8Lg1qgxxYf7w8MLHwo-fTNqQZAYWkLjCEND02Ib1XuZNB8nPkqXq28KvxzUw0FZec3AUKYn43fdSfQGyQC2KeBV',
+    };
+    final response = await http.post(url, body: body, headers: headers);
+    if (response.statusCode == 200) {
+      print("done===");
+    } else {
+      // ShowDialogs().alertWarning(msg: 'User Name or Password incorrect');
+      Fluttertoast.showToast(msg: 'something went wrong');
+    }
+  }
+
+  Future<http.Response?> receiveNoti() async {
+    String ac_add, money, ac_memus, tokenNoti;
+    ac_add = "${infoTransfer.cardNumber}";
+    ac_memus = cardMe!;
+    money = moneyInput.text;
+    tokenNoti = "${infoTransfer.tokenNotiMe}";
+
+    var url = Uri.parse(apiNoti);
+    var body = json.encode({
+      "to": "$tokenNoti",
+      "notification": {
+        "title": "From to ${infoTransfer.namMe} ${infoTransfer.lastMe}",
+        "body": "+ $money kip",
         "mutable_content": true,
         "sound": "Tri-tone"
       }

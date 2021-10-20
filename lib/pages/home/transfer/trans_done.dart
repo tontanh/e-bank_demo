@@ -39,7 +39,7 @@ class _ErrorPagesState extends State<TransDone> {
             TextButton(
               // style: TextButton.styleFrom(backgroundColor: Colors.grey[300]),
               onPressed: () {
-                Get.off(() => RootHomePage(),
+                Get.offAll(() => RootHomePage(),
                     transition: Transition.noTransition);
               },
               child: const Text(

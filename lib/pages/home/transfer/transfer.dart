@@ -189,6 +189,8 @@ class _TransferPageAccountState extends State<TransferPageAccount> {
       // print(name + last);
       uidRe.namRe = "$name".obs;
       uidRe.lastRe = "$last".obs;
+      await getTokenMe();
+      await getTokenYou(uids: receiId);
       await acMe();
     } else {
       Fluttertoast.showToast(msg: 'something went wrong');
@@ -213,6 +215,42 @@ class _TransferPageAccountState extends State<TransferPageAccount> {
       Get.to(() => const TranAmountPage(), transition: Transition.rightToLeft);
     } else {
       Fluttertoast.showToast(msg: 'something went wrong');
+      // Future.delayed(Duration(seconds: 1), () {});
+    }
+  }
+
+  Future<http.Response?> getTokenMe() async {
+    var url = Uri.parse(apiNotiToken + meId!);
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    final response = await http.get(url, headers: headers);
+    final responseJson = json.decode(response.body);
+    if (response.statusCode == 200) {
+      String notiToken = "${responseJson["noti_token"]}";
+      uidRe.tokenNotiMe = "$notiToken".obs;
+    } else {
+      Fluttertoast.showToast(msg: 'notification went wrong 1');
+      // Future.delayed(Duration(seconds: 1), () {});
+    }
+  }
+
+  Future<http.Response?> getTokenYou({String? uids}) async {
+    var url = Uri.parse(apiNotiToken + uids!);
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    final response = await http.get(url, headers: headers);
+    final responseJson = json.decode(response.body);
+    if (response.statusCode == 200) {
+      String notiToken = "${responseJson["noti_token"]}";
+      uidRe.tokenNotiYou = "$notiToken".obs;
+    } else {
+      Fluttertoast.showToast(msg: 'notification went wrong 2');
       // Future.delayed(Duration(seconds: 1), () {});
     }
   }

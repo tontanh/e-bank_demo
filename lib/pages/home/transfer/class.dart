@@ -10,4 +10,6 @@ class TransferClass extends GetxController {
   RxString lastRe = '0'.obs;
   RxString namMe = '0'.obs;
   RxString lastMe = '0'.obs;
+  RxString tokenNotiMe = '0'.obs;
+  RxString tokenNotiYou = '0'.obs;
 }
