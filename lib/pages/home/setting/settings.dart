@@ -33,11 +33,11 @@ class _CardPageState extends State<SettingPage> {
               title: 'Change Password',
               detailText: 'Use a new password to login',
               imageUrl: 'assets/icons/password.svg'),
-          showList(
-              title: 'Change Language',
-              detailText: 'change a language that you choose',
-              imageUrl: 'assets/icons/language.svg',
-              onTap: () => ChangeLanguage().ChangeLanguages(context: context)),
+          // showList(
+          //     title: 'Change Language',
+          //     detailText: 'change a language that you choose',
+          //     imageUrl: 'assets/icons/language.svg',
+          //     onTap: () => ChangeLanguage().ChangeLanguages(context: context)),
           showList(
               title: 'About Me',
               detailText: 'show detail and contact about me ',

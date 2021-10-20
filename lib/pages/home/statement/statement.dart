@@ -9,14 +9,14 @@ import 'dart:convert';
 
 import 'package:intl/intl.dart';
 
-class MessagePage extends StatefulWidget {
-  const MessagePage({Key? key}) : super(key: key);
+class StatementPage extends StatefulWidget {
+  const StatementPage({Key? key}) : super(key: key);
 
   @override
   _CardPageState createState() => _CardPageState();
 }
 
-class _CardPageState extends State<MessagePage> {
+class _CardPageState extends State<StatementPage> {
   StreamController? _postsController;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   int count = 1;
@@ -84,7 +84,7 @@ class _CardPageState extends State<MessagePage> {
         // ignore: prefer_const_constructors
         backgroundColor: appColor,
         centerTitle: true,
-        title: Text('MESSAGES'),
+        title: Text('STATEMENT'),
         actions: <Widget>[
           IconButton(
             tooltip: 'Refresh',
@@ -260,7 +260,7 @@ class _CardPageState extends State<MessagePage> {
                               style: TextStyle(fontSize: 14),
                             ),
                             Text(
-                              'detail: $detailText',
+                              '$detailText',
                               style: TextStyle(fontSize: 14),
                             ),
                             Text(

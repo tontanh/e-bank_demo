@@ -28,3 +28,15 @@ const apiGetNotiToken = "$ip:$port/api/cards/notification";
 const apiGetUserInfo = "$ip:$port/api/users/info/";
 // his transfer
 const apiHisTransfer = "$ip:$port/api/cards/history/trans";
+// select card
+const apiSelectCard = "$ip:$port/api/cards/select/";
+
+// card received
+const apiReceived = "$ip:$port/api/cards/rev_card";
+
+// tran card
+const apiTranCard = "$ip:$port/api/cards/tran_card";
+//create card
+const apiCreateTran = "$ip:$port/api/cards/create_tran";
+// noti
+const apiNoti = "https://fcm.googleapis.com/fcm/send";

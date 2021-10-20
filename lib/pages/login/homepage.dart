@@ -16,9 +16,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'class.dart';
 import 'constant.dart';
 
@@ -477,7 +475,7 @@ class _LoginScreenState extends State<LoginScreen> {
     };
     final response = await http.get(url, headers: headers);
     final responseJson = json.decode(response.body);
-    print(response.statusCode);
+    // print(response.statusCode);
     if (response.statusCode == 200) {
       cards = responseJson['card_number'];
       Future.delayed(const Duration(seconds: 1), () {

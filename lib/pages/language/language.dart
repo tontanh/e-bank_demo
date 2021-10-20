@@ -70,6 +70,7 @@ class LocalString extends Translations {
           'Your Account': 'Your Account',
           'This is your QR Code': 'This is your QR Code',
           'Cancel': 'Cancel',
+          'No Data': 'No Data',
         },
         // Lao language
         'la_LA': {
@@ -139,6 +140,7 @@ class LocalString extends Translations {
           'Your Account': 'ບັນຊີ',
           'This is your QR Code': 'ນີ້ແມ່ນ QR Code ຂອງທ່ານ',
           'Cancel': 'ຍົກເລີກ',
+          'No Data': 'ບໍ່ມີຂໍ້ມູນ',
         },
       };
 }

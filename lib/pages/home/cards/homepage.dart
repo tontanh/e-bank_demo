@@ -1,18 +1,24 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:convert';
+import 'package:animate_icons/animate_icons.dart';
 import 'package:ebank_demo/pages/api/api.dart';
 import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
 import 'package:ebank_demo/pages/home/root_page/controler.dart';
 import 'package:ebank_demo/pages/home/root_page/root_home.dart';
+import 'package:ebank_demo/pages/home/statement/statement.dart';
+import 'package:ebank_demo/pages/home/transfer/transfer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'dart:math' as math;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
 import 'card.dart';
 
 class CardPage extends StatefulWidget {
@@ -25,6 +31,7 @@ class CardPage extends StatefulWidget {
 class _CardPageState extends State<CardPage> {
   final pageIndex = Get.put(PageNextCard());
   bool showBalance = true;
+  String? money;
 
   @override
   void initState() {
@@ -33,10 +40,18 @@ class _CardPageState extends State<CardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return designWidget();
+    final DataUserLogins userAcccess = Provider.of<DataUserLogins>(context);
+    loginUser(uid: '${userAcccess.uIdGet}', token: '${userAcccess.jwtGet}');
+
+    return designWidget(onPress: () {
+      setState(() {
+        loginUser(uid: '${userAcccess.uIdGet}', token: '${userAcccess.jwtGet}');
+        showBalance = false;
+      });
+    });
   }
 
-  designWidget() {
+  designWidget({VoidCallback? onPress, meme}) {
     // print(stdController.proId);
 
     return Scaffold(
@@ -56,6 +71,16 @@ class _CardPageState extends State<CardPage> {
                 color: Colors.grey[200],
                 child: Stack(
                   children: [
+                    showBalance
+                        ? Container()
+                        : Positioned(
+                            bottom: 15,
+                            right: 20,
+                            child: Icon(
+                              Icons.done,
+                              color: Colors.grey,
+                            ),
+                          ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
@@ -93,11 +118,7 @@ class _CardPageState extends State<CardPage> {
                                                             5),
                                                     side: BorderSide(
                                                         color: Colors.grey)))),
-                                        onPressed: () {
-                                          setState(() {
-                                            showBalance = false;
-                                          });
-                                        },
+                                        onPressed: onPress,
                                         child: Text(
                                           'Show balance',
                                           style: TextStyle(color: Colors.black),
@@ -105,14 +126,15 @@ class _CardPageState extends State<CardPage> {
                                     : Container(
                                         child: Row(
                                           children: [
-                                            Text('100,000.00'),
+                                            Text('$money'),
+                                            SizedBox(width: 5),
                                             Text('kip'),
                                           ],
                                         ),
                                       )
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -166,7 +188,10 @@ class _CardPageState extends State<CardPage> {
                         ),
                         text: 'Statement',
                         close: '',
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => const StatementPage(),
+                              transition: Transition.noTransition);
+                        },
                       ),
                     ),
                     menuItem(
@@ -177,8 +202,9 @@ class _CardPageState extends State<CardPage> {
                         color: appColor,
                       ),
                       text: 'Card Info',
-                      close: '',
+                      close: '(Close)'.tr,
                       onTap: () {
+                        Fluttertoast.showToast(msg: '(Close)'.tr);
                         // Navigator.pushNamed(
                         //     context, OpenAndCloseOfExam.id);
                       },
@@ -192,7 +218,10 @@ class _CardPageState extends State<CardPage> {
                       ),
                       text: 'Transfer',
                       close: '',
-                      onTap: () {},
+                      onTap: () {
+                        Get.off(() => TransferPageAccount(),
+                            transition: Transition.rightToLeft);
+                      },
                     ),
                     menuItem(
                       icon: SvgPicture.asset(
@@ -313,5 +342,36 @@ class _CardPageState extends State<CardPage> {
         ),
       ],
     );
+  }
+
+  Future<http.Response?> loginUser({String? uid, token}) async {
+    var url = Uri.parse(apiShowCard + '$uid');
+    // var body =
+    //     json.encode({"email": "${userName.text}", "password": "${pwd.text}"});
+
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    final response = await http.get(url, headers: headers);
+    final responseJson = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      var meme = '${responseJson['card_money']}';
+      final formatter = NumberFormat("#,###");
+      var price = int.parse(meme);
+      var moneys = formatter.format(price);
+
+      money = moneys;
+    } else if (response.statusCode == 401) {
+      // if (Platform.isAndroid) {
+      //   SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      // } else if (Platform.isIOS) {
+      //   exit(0);
+      // }
+    } else {
+      print('wrong');
+    }
   }
 }

@@ -1,4 +1,6 @@
 import 'package:ebank_demo/pages/class/login_data_provider.dart';
+import 'package:ebank_demo/pages/home/transfer/transfer.dart';
+import 'package:ebank_demo/pages/home/transfer/transfer_amount.dart';
 import 'package:ebank_demo/pages/language/language.dart';
 import 'package:ebank_demo/pages/switch_page/mainpage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -88,11 +90,14 @@ class _MyAppState extends State<MyApp> {
           // primaryColor: appColor,
         ),
         debugShowCheckedModeBanner: false,
+
+        // use this
         home: SwitchScreen(
           notiToken: notiToken.toString(),
         ),
-        // home: const RootHomePage(),
-        // home: const HomePage(),
+
+        // test
+        // home: const TranAmountPage(),
       ),
     );
   }
