@@ -97,7 +97,7 @@ class _RootHomePageState extends State<RootHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        'assets/icons/message.svg',
+                        'assets/icons/ms2.svg',
                         width: 25,
                         height: 25,
                         color: currentTab == 1 ? appColor : Colors.grey,

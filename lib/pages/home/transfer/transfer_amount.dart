@@ -185,7 +185,7 @@ class _TransferPageAccountState extends State<TranAmountPage> {
                       style: const TextStyle(
                         fontSize: 18.0,
                       ),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
@@ -411,7 +411,7 @@ class _TransferPageAccountState extends State<TranAmountPage> {
     ac_add = "${infoTransfer.cardNumber}";
     ac_memus = cardMe!;
     money = moneyInput.text;
-    tokenNoti = "${infoTransfer.tokenNotiMe}";
+    tokenNoti = "${infoTransfer.tokenNotiYou}";
 
     var url = Uri.parse(apiNoti);
     var body = json.encode({

@@ -1,167 +1,66 @@
-import 'dart:convert';
+// ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:ebank_demo/main.dart';
 import 'package:ebank_demo/pages/api/api.dart';
 import 'package:ebank_demo/pages/class/login_data_provider.dart';
-import 'package:ebank_demo/pages/constant/data.dart';
-import 'package:ebank_demo/pages/home/cards/homepage.dart';
-import 'package:ebank_demo/pages/home/root_page/root_home.dart';
+import 'package:ebank_demo/pages/home/transfer/class.dart';
 import 'package:ebank_demo/pages/home/transfer/transfer_amount.dart';
+import 'package:ebank_demo/pages/login/homepage.dart';
+import 'package:ebank_demo/pages/login_root/root.dart';
+import 'package:ebank_demo/pages/switch_page/screenloading.dart';
+import 'package:ebank_demo/pages/switch_page/time_out.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-import 'class.dart';
+class CheckQrCodeReal extends StatefulWidget {
+  final String accNumC;
+  const CheckQrCodeReal({Key? key, required this.accNumC}) : super(key: key);
 
-class TransferPageAccount extends StatefulWidget {
-  const TransferPageAccount({Key? key}) : super(key: key);
   @override
-  _TransferPageAccountState createState() => _TransferPageAccountState();
+  _SwitchScreenState createState() => _SwitchScreenState();
 }
 
-class _TransferPageAccountState extends State<TransferPageAccount> {
+class _SwitchScreenState extends State<CheckQrCodeReal> {
   TextEditingController accTxt = TextEditingController();
   final uidRe = Get.put(TransferClass());
   String? token, meId;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final DataUserLogins userAcccess = Provider.of<DataUserLogins>(context);
     token = '${userAcccess.jwtGet}';
     meId = '${userAcccess.uIdGet}';
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
+    return FutureBuilder(
+      future: accSelect(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          //   Get.to(() => const TranAmountPage(),
+          //       transition: Transition.rightToLeft);
+        } else {
+          ScreenLoadingPage();
+        }
+        return ScreenLoadingPage();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Receivers Account"),
-          backgroundColor: appColor,
-          leading: IconButton(
-            icon: Icon(
-              Icons.close,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Get.off(() => RootHomePage(), transition: Transition.leftToRight);
-            },
-          ),
-        ),
-        body: Stack(
-          children: [
-            topAccount(),
-            nextButton(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  topAccount() {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        color: Colors.grey[200],
-        height: 125,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Column(
-                // crossAxisAlignment: ,
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text('Add receivers account'),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text("* 0101224010200xxxxxxx"),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    // color: Colors.white,
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    height: 70,
-                    child: TextField(
-                        controller: accTxt,
-                        maxLength: 20,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          filled: true,
-                          hintText: "Account Number",
-                          // border: BorderSide.none,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.zero),
-                        )),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  nextButton() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: InkWell(
-        onTap: () async {
-          if (accTxt == null || accTxt == "") {
-            Fluttertoast.showToast(msg: 'Please input number');
-          } else {
-            if (accTxt.text.length >= 20) {
-              await accSelect();
-            } else {
-              Fluttertoast.showToast(msg: 'number length is 20');
-            }
-          }
-        },
-        child: Container(
-          color: appColor,
-          height: 60,
-          child: Stack(
-            children: [
-              Center(
-                child: Text(
-                  "Next",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Icon(
-                  Icons.arrow_forward,
-                  color: Colors.white,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
     );
   }
 
   Future<http.Response?> accSelect() async {
     String acText;
-    acText = accTxt.text;
+    acText = '${widget.accNumC}';
+    print('====================' + acText);
     var url = Uri.parse(apiSelectCard + acText);
 
     Map<String, String> headers = {
@@ -179,6 +78,7 @@ class _TransferPageAccountState extends State<TransferPageAccount> {
       uidRe.moneys = "$money".obs;
       await getUserInfo(receiId: uids);
     } else {
+      Get.back();
       Fluttertoast.showToast(msg: 'wrong card');
       // Future.delayed(Duration(seconds: 1), () {});
     }

@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   // },
                                   // controller: userName,
                                   style: dartStyle.copyWith(height: 2),
-                                  keyboardType: TextInputType.name,
+                                  keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
                                     // fillColor: Colors.white,
                                     filled: true,

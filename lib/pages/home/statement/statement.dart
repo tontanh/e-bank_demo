@@ -143,7 +143,7 @@ class _CardPageState extends State<StatementPage> {
                           ac_no == meAcc ? color = Colors.green : color = color;
                           ac_no == meAcc ? textT = "TRI" : textT = textT;
                           ac_no == meAcc
-                              ? titile = "Fund transfer sent"
+                              ? titile = "Fund transfer received"
                               : titile = titile;
                           // String sent3 = 'TRO';
                           // String received3 = 'TRI';

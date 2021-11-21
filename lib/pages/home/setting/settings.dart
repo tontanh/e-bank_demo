@@ -1,6 +1,7 @@
 import 'package:ebank_demo/pages/about/about_page.dart';
 import 'package:ebank_demo/pages/constant/data.dart';
 import 'package:ebank_demo/pages/language/change_language.dart';
+import 'package:ebank_demo/pages/phone_reset_pass/sent_phone.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -32,12 +33,16 @@ class _CardPageState extends State<SettingPage> {
           showList(
               title: 'Change Password',
               detailText: 'Use a new password to login',
-              imageUrl: 'assets/icons/password.svg'),
+              imageUrl: 'assets/icons/password.svg',
+              onTap: () {
+                Get.off(() => const PhoneSentCodeToServer(),
+                    transition: Transition.noTransition);
+              }),
           // showList(
           //     title: 'Change Language',
           //     detailText: 'change a language that you choose',
           //     imageUrl: 'assets/icons/language.svg',
-          //     onTap: () => ChangeLanguage().ChangeLanguages(context: context)),
+// PhoneSentCodeToServer
           showList(
               title: 'About Me',
               detailText: 'show detail and contact about me ',

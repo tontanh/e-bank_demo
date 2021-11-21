@@ -2,6 +2,8 @@ import 'package:ebank_demo/pages/class/login_data_provider.dart';
 import 'package:ebank_demo/pages/home/transfer/transfer.dart';
 import 'package:ebank_demo/pages/home/transfer/transfer_amount.dart';
 import 'package:ebank_demo/pages/language/language.dart';
+import 'package:ebank_demo/pages/phone_reset_pass/reset_pass.dart';
+import 'package:ebank_demo/pages/phone_reset_pass/sent_phone.dart';
 import 'package:ebank_demo/pages/switch_page/mainpage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -19,7 +21,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 Future<void> _firebaseMSGBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('show msg just show up :' '${message.messageId}');
+  // print('show msg just show up :' '${message.messageId}');
 }
 
 String? notiToken;
@@ -60,7 +62,6 @@ class _MyAppState extends State<MyApp> {
           NotificationDetails(
             android: AndroidNotificationDetails(
               channel.id, channel.name,
-
               // color: Colors.blue,
               playSound: true,
               icon: '@mipmap/ic_launcher',
@@ -90,14 +91,12 @@ class _MyAppState extends State<MyApp> {
           // primaryColor: appColor,
         ),
         debugShowCheckedModeBanner: false,
-
         // use this
         home: SwitchScreen(
           notiToken: notiToken.toString(),
         ),
-
         // test
-        // home: const TranAmountPage(),
+        // home: const ResetPasswordPage(),
       ),
     );
   }

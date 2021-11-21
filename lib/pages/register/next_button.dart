@@ -1,3 +1,4 @@
+import 'package:ebank_demo/pages/constant/data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
@@ -15,7 +16,7 @@ class NextButtons extends StatelessWidget {
       height: 30,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(3),
-        color: Colors.grey[400],
+        color: appColor,
       ),
       margin: EdgeInsets.only(right: 10, bottom: 10),
       child: InkWell(
@@ -28,12 +29,12 @@ class NextButtons extends StatelessWidget {
             Container(
                 child: Text(
               'Next'.tr,
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             )),
             Icon(
               Icons.arrow_forward_ios_outlined,
               size: 15,
-              color: Colors.black,
+              color: Colors.white,
             )
           ],
         ),

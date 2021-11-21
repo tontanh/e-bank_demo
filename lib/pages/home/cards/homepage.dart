@@ -31,7 +31,7 @@ class CardPage extends StatefulWidget {
 class _CardPageState extends State<CardPage> {
   final pageIndex = Get.put(PageNextCard());
   bool showBalance = true;
-  String? money;
+  String? money, cards;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _CardPageState extends State<CardPage> {
   Widget build(BuildContext context) {
     final DataUserLogins userAcccess = Provider.of<DataUserLogins>(context);
     loginUser(uid: '${userAcccess.uIdGet}', token: '${userAcccess.jwtGet}');
-
+    cards = userAcccess.cardGet;
     return designWidget(onPress: () {
       setState(() {
         loginUser(uid: '${userAcccess.uIdGet}', token: '${userAcccess.jwtGet}');
@@ -103,7 +103,7 @@ class _CardPageState extends State<CardPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('0101 2240 10200 xxxxxxx'),
+                                Text('$cards'),
                                 SizedBox(
                                   height: 5,
                                 ),

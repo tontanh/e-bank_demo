@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:ebank_demo/main.dart';
 import 'package:ebank_demo/pages/switch_page/mainpage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -36,10 +39,14 @@ class _ErrorPagesState extends State<ErrorPages> {
             TextButton(
               // style: TextButton.styleFrom(backgroundColor: Colors.grey[300]),
               onPressed: () {
-                Get.off(() => const MyApp(), transition: Transition.zoom);
+                if (Platform.isAndroid) {
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                } else if (Platform.isIOS) {
+                  exit(0);
+                }
               },
               child: const Text(
-                'try again',
+                'Exit',
                 style: TextStyle(color: Colors.black),
               ),
             ),

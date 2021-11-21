@@ -139,11 +139,12 @@ class _CardPageState extends State<MessagePage> {
                           String menus = "-";
                           String ac_no = getData.ac_no.toString();
                           String meAcc = '${post['trans_reciever']}';
+
                           ac_no == meAcc ? menus = "" : menus = menus;
                           ac_no == meAcc ? color = Colors.green : color = color;
                           ac_no == meAcc ? textT = "TRI" : textT = textT;
                           ac_no == meAcc
-                              ? titile = "Fund transfer sent"
+                              ? titile = "Fund transfer received"
                               : titile = titile;
                           // String sent3 = 'TRO';
                           // String received3 = 'TRI';

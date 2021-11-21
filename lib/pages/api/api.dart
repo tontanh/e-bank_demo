@@ -1,13 +1,13 @@
 // port
 const port = "8000";
+const portPhone = "8500";
 // io
 // const ip = "127.0.0.1";192.168.43.107,192.168.10.154
-const String ip = "http://192.168.43.107";
+const String ip = "http://192.168.32.135";
 // server check
 const apiServer = "$ip:$port/api/users/server/";
 // login
 const apiLogin = "$ip:$port/api/users/login";
-
 //phone check already
 const apiCheckPhone = "$ip:$port/api/users/tell/";
 //phone check already
@@ -30,10 +30,8 @@ const apiGetUserInfo = "$ip:$port/api/users/info/";
 const apiHisTransfer = "$ip:$port/api/cards/history/trans";
 // select card
 const apiSelectCard = "$ip:$port/api/cards/select/";
-
 // card received
 const apiReceived = "$ip:$port/api/cards/rev_card";
-
 // tran card
 const apiTranCard = "$ip:$port/api/cards/tran_card";
 //create card
@@ -42,3 +40,9 @@ const apiCreateTran = "$ip:$port/api/cards/create_tran";
 const apiNoti = "https://fcm.googleapis.com/fcm/send";
 // select token noti
 const apiNotiToken = "$ip:$port/api/cards/select/noti/";
+// change password
+const apiChangePass = "$ip:$port/api/users/update/users";
+// sent phone
+const apiSentCode = "$ip:$portPhone/login";
+// sent received
+const apiReceivedCode = "$ip:$portPhone/verify";
